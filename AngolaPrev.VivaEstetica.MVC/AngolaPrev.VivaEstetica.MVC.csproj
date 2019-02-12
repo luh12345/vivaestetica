@@ -173,21 +173,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IoC\ContainerFactory.cs" />
-    <Compile Include="Migrations\201902112355234_entidades_principais.cs" />
-    <Compile Include="Migrations\201902112355234_entidades_principais.Designer.cs">
-      <DependentUpon>201902112355234_entidades_principais.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902120043329_att_tbservicos.cs" />
-    <Compile Include="Migrations\201902120043329_att_tbservicos.Designer.cs">
-      <DependentUpon>201902120043329_att_tbservicos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902120125375_tb_agenda.cs" />
-    <Compile Include="Migrations\201902120125375_tb_agenda.Designer.cs">
-      <DependentUpon>201902120125375_tb_agenda.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902120126554_UP_TB_AGENDA.cs" />
-    <Compile Include="Migrations\201902120126554_UP_TB_AGENDA.Designer.cs">
-      <DependentUpon>201902120126554_UP_TB_AGENDA.cs</DependentUpon>
+    <Compile Include="Migrations\201902120157224_UP_TB_AGENDA.cs" />
+    <Compile Include="Migrations\201902120157224_UP_TB_AGENDA.Designer.cs">
+      <DependentUpon>201902120157224_UP_TB_AGENDA.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Clientes\ClienteViewModel.cs" />
@@ -272,17 +260,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902112355234_entidades_principais.resx">
-      <DependentUpon>201902112355234_entidades_principais.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902120043329_att_tbservicos.resx">
-      <DependentUpon>201902120043329_att_tbservicos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902120125375_tb_agenda.resx">
-      <DependentUpon>201902120125375_tb_agenda.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902120126554_UP_TB_AGENDA.resx">
-      <DependentUpon>201902120126554_UP_TB_AGENDA.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902120157224_UP_TB_AGENDA.resx">
+      <DependentUpon>201902120157224_UP_TB_AGENDA.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

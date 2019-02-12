@@ -12,6 +12,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Repository
         public int Id { get; set; }
 
         public string DS_SERVICO { get; set; }
-
+        public int QT_SESSOES { get; set; }
+        public int TP_MINUTOS { get; set; }
     }
 }

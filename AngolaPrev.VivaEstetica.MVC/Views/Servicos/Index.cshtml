@@ -1,0 +1,51 @@
+﻿@model IEnumerable<AngolaPrev.VivaEstetica.MVC.Models.Servico.ObterServicoViewModel>
+
+@{
+    ViewBag.Title = "Serviços cadastrados";
+}
+
+<h2>Serviços cadastrados</h2>
+
+<p>
+    @Html.ActionLink("Criar novo serviço", "Cadastro")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdServico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalSessoes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duracao)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdServico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalSessoes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duracao)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { item.IdServico }) |
+                @Html.ActionLink("Remover", "Remover", new { item.IdServico })
+            </td>
+        </tr>
+    }
+
+</table>

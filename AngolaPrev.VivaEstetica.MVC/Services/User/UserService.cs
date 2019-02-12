@@ -1,37 +1,49 @@
-﻿using AngolaPrev.VivaEstetica.MVC.Models.Clientes;
-using AngolaPrev.VivaEstetica.MVC.Repository;
-using AngolaPrev.VivaEstetica.MVC.Services.User.Result;
+﻿using AngolaPrev.VivaEstetica.MVC.Common.Const;
+using AngolaPrev.VivaEstetica.MVC.Models.Clientes;
+using AngolaPrev.VivaEstetica.MVC.Models.Login;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+using WebMatrix.WebData;
 
 namespace AngolaPrev.VivaEstetica.MVC.Services.User
 {
     public class UserService : IUserService
     {
-        private readonly IUserContext userContext;
-
-        public UserService(IUserContext userContext)
+        public void Register(ClienteViewModel model)
         {
-            this.userContext = userContext;
+            try
+            {
+                WebSecurity.CreateUserAndAccount(model.Email, model.Password, new
+                {
+                    model.Nome,
+                    model.Cpf,
+                    model.Telefone,
+                    model.Endereco
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ExceptionMessages.UsuarioJaCadastrado, ex);
+            }
         }
 
-        public async Task<AddUserResult> AddUser(ClienteViewModel model)
+        public void Login(LoginViewModel model)
         {
-            TB_CLIENTE user = new TB_CLIENTE
+            if (WebSecurity.UserExists(model.Email))
             {
-                Nome = model.Nome,
-                Sobrenome = model.Sobrenome,
-                Email = model.Email,
-                Endereco = model.Endereco,
-                Cpf = model.CPF,
-                PhoneNumber = model.Telefone
-            };
+                if (!WebSecurity.Login(model.Email, model.Password))
+                {
+                    throw new Exception(ExceptionMessages.SenhaIncorreta);
+                }
+            }
+            else
+            {
+                throw new Exception(ExceptionMessages.UsuarioNaoExiste);
+            }
+        }
 
-            IEnumerable<string> errors = await userContext.AddUser(user, model.Password);
-            return new AddUserResult(!errors.Any(), errors);
+        public void Logout()
+        {
+            WebSecurity.Logout();
         }
     }
 }

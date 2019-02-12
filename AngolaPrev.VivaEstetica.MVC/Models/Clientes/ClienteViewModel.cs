@@ -10,9 +10,8 @@ namespace AngolaPrev.VivaEstetica.MVC.Models.Clientes
     {
         [Required]
         public string Nome { get; set; }
-        public string Sobrenome { get; set; }
         [Required]
-        public string CPF { get; set; }
+        public string Cpf { get; set; }
         [Required]
         public string Telefone { get; set; }
         public string Endereco { get; set; }

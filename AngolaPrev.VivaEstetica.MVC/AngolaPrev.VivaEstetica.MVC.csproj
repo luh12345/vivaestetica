@@ -58,12 +58,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -129,6 +123,12 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.7\lib\net45\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.7\lib\net45\WebMatrix.WebData.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -160,29 +160,55 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\Const\ExceptionMessages.cs" />
+    <Compile Include="Common\Const\HorariosAtendimento.cs" />
+    <Compile Include="Common\Const\Messages.cs" />
+    <Compile Include="Controllers\AgendaController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ServicosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IoC\ContainerFactory.cs" />
+    <Compile Include="Migrations\201902112355234_entidades_principais.cs" />
+    <Compile Include="Migrations\201902112355234_entidades_principais.Designer.cs">
+      <DependentUpon>201902112355234_entidades_principais.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902120043329_att_tbservicos.cs" />
+    <Compile Include="Migrations\201902120043329_att_tbservicos.Designer.cs">
+      <DependentUpon>201902120043329_att_tbservicos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902120125375_tb_agenda.cs" />
+    <Compile Include="Migrations\201902120125375_tb_agenda.Designer.cs">
+      <DependentUpon>201902120125375_tb_agenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902120126554_UP_TB_AGENDA.cs" />
+    <Compile Include="Migrations\201902120126554_UP_TB_AGENDA.Designer.cs">
+      <DependentUpon>201902120126554_UP_TB_AGENDA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Clientes\ClienteViewModel.cs" />
     <Compile Include="Models\Login\LoginViewModel.cs" />
+    <Compile Include="Models\Servico\CadastroServicoViewModel.cs" />
+    <Compile Include="Models\Servico\ObterServicoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\Contract\IUserContext.cs" />
-    <Compile Include="Repository\TB_CLIENTE.cs" />
+    <Compile Include="Repository\Contract\IVivaEsteticaContext.cs" />
+    <Compile Include="Repository\TB_AGENDA.cs" />
+    <Compile Include="Repository\TB_CLIENTES.cs" />
     <Compile Include="Repository\TB_SERVICOS.cs" />
-    <Compile Include="Repository\UserContext.cs" />
     <Compile Include="Repository\VivaEsteticaContext.cs" />
+    <Compile Include="Services\Serviços\IServicoService.cs" />
+    <Compile Include="Services\Serviços\ServicoService.cs" />
     <Compile Include="Services\User\IUserService.cs" />
-    <Compile Include="Services\User\Result\AddUserResult.cs" />
     <Compile Include="Services\User\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\vivaestetica.mdf" />
-    <Content Include="App_Data\vivaestetica_log.ldf">
-      <DependentUpon>vivaestetica.mdf</DependentUpon>
+    <Content Include="App_Data\angolaprev.mdf" />
+    <Content Include="App_Data\angolaprev_log.ldf">
+      <DependentUpon>angolaprev.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -222,9 +248,15 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Cliente\Cadastro.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Servicos\Cadastro.cshtml" />
+    <Content Include="Views\Servicos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\Exceptions\" />
     <Folder Include="Models\Agenda\" />
+    <Folder Include="Services\Agenda\" />
+    <Folder Include="Views\Agenda\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -238,6 +270,20 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902112355234_entidades_principais.resx">
+      <DependentUpon>201902112355234_entidades_principais.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902120043329_att_tbservicos.resx">
+      <DependentUpon>201902120043329_att_tbservicos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902120125375_tb_agenda.resx">
+      <DependentUpon>201902120125375_tb_agenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902120126554_UP_TB_AGENDA.resx">
+      <DependentUpon>201902120126554_UP_TB_AGENDA.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

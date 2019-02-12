@@ -25,6 +25,11 @@
                     {
                         <li>@Html.ActionLink("Registro", "Cadastro", "Cliente")</li>
                     }
+                    else
+                    {
+                        <li>@Html.ActionLink("Serviços", "Index", "Servicos")</li>
+                        <li>@Html.ActionLink("Sair", "Logout", "Login")</li>
+                    }
                 </ul>
             </div>
         </div>

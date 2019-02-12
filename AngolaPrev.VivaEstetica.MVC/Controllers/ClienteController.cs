@@ -1,17 +1,11 @@
 ﻿using AngolaPrev.VivaEstetica.MVC.Models.Clientes;
-using AngolaPrev.VivaEstetica.MVC.Repository;
 using AngolaPrev.VivaEstetica.MVC.Services.User;
-using AngolaPrev.VivaEstetica.MVC.Services.User.Result;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AngolaPrev.VivaEstetica.MVC.Controllers
 {
-    public class ClienteController : Controller
+    public class ClienteController : BaseController
     {
         private readonly IUserService userService;
 
@@ -32,21 +26,23 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<ActionResult> Cadastro(ClienteViewModel model)
+        public ActionResult Cadastro(ClienteViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            AddUserResult result = await userService.AddUser(model);
-            if (!result.IsSuccess)
+            try
             {
-                foreach (var error in result.Errors)
-                    ModelState.AddModelError("", new Exception(error));
-
+                userService.Register(model);
+                Callback();
+            }
+            catch (Exception ex)
+            {
+                Callback(ex);
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Login", "Login");
         }
     }
 }

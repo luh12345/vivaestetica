@@ -1,4 +1,6 @@
 ﻿using AngolaPrev.VivaEstetica.MVC.Repository;
+using AngolaPrev.VivaEstetica.MVC.Repository.Contract;
+using AngolaPrev.VivaEstetica.MVC.Services.Serviços;
 using AngolaPrev.VivaEstetica.MVC.Services.User;
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -18,12 +20,11 @@ namespace AngolaPrev.VivaEstetica.MVC.IoC
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterFilterProvider();
-
-            builder.RegisterType<UserContext>().As<IUserContext>().InstancePerLifetimeScope();
-            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
+            builder.RegisterType<ServicoService>().As<IServicoService>().InstancePerRequest();
+            builder.RegisterType<VivaEsteticaContext>().As<IVivaEsteticaContext>().InstancePerLifetimeScope();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly());
-
             return builder.Build();
         }
     }

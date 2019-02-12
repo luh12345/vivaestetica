@@ -178,6 +178,8 @@
       <DependentUpon>201902120157224_UP_TB_AGENDA.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Agenda\FiltroAgendamentoViewModel.cs" />
+    <Compile Include="Models\Agenda\ObterAgendamentosPorDataViewModel.cs" />
     <Compile Include="Models\Clientes\ClienteViewModel.cs" />
     <Compile Include="Models\Login\LoginViewModel.cs" />
     <Compile Include="Models\Servico\CadastroServicoViewModel.cs" />
@@ -188,6 +190,8 @@
     <Compile Include="Repository\TB_CLIENTES.cs" />
     <Compile Include="Repository\TB_SERVICOS.cs" />
     <Compile Include="Repository\VivaEsteticaContext.cs" />
+    <Compile Include="Services\Agenda\AgendaService.cs" />
+    <Compile Include="Services\Agenda\IAgendaService.cs" />
     <Compile Include="Services\Serviços\IServicoService.cs" />
     <Compile Include="Services\Serviços\ServicoService.cs" />
     <Compile Include="Services\User\IUserService.cs" />
@@ -238,12 +242,10 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Servicos\Cadastro.cshtml" />
     <Content Include="Views\Servicos\Index.cshtml" />
+    <Content Include="Views\Agenda\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\Exceptions\" />
-    <Folder Include="Models\Agenda\" />
-    <Folder Include="Services\Agenda\" />
-    <Folder Include="Views\Agenda\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

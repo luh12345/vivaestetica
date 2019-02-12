@@ -1,0 +1,55 @@
+﻿@model  AngolaPrev.VivaEstetica.MVC.Models.Agenda.FiltroAgendamentoViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Agenda do dia @Model.DataAgendamentoFormatted</h2>
+
+@using (Html.BeginForm("Index", "Agenda", FormMethod.Get))
+{
+    @Html.TextBoxFor(Model => Model.DataAgendamentoFormatted, new { type = "date", @class = "form-control" })
+    <button type="submit">Atualizar</button>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Hora do agendamento")
+        </th>
+        <th>
+            @Html.DisplayName("Descrição do Serviço")
+        </th>
+        <th>
+            @Html.DisplayName("Nome do cliente")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Data)
+    {
+        <tr>
+            <td>
+                @Html.DisplayName(item.Hora.ToString())
+            </td>
+            <td>
+                @Html.DisplayName(item.DescricaoServico)
+            </td>
+            <td>
+                @Html.DisplayName(item.NomePessoa)
+            </td>
+
+            <td>
+                @if (!string.IsNullOrEmpty(item.NomePessoa))
+                {
+                    @Html.ActionLink("Cancelar Agendamento", "Cancelar", new { /* id=item.PrimaryKey */ })
+                }
+                else
+                {
+                    
+                }
+            </td>
+        </tr>
+    }
+
+</table>

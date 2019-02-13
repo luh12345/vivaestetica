@@ -48,21 +48,6 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
             TB_SERVICOS servico = context.TB_SERVICOS.Single(x => x.Id == model.IdServico);
             TB_SECOES secao = null;
 
-            IEnumerable<TB_AGENDA> agendamentosCliente = context.TB_AGENDA
-                                                .Where(x => x.ID_SERVICO == model.IdServico && x.ID_CLIENTE == model.IdCliente)
-                                                .ToList();
-
-            TB_AGENDA agendamentoMesmoServico = agendamentosCliente.Where(x => (x.DT_AGENDAMENTO - model.DataAgendamento).TotalDays == 0)
-                                                    .FirstOrDefault();
-            if (agendamentoMesmoServico != null)
-                throw new Exception(string.Format(ExceptionMessages.ServicoJaCadastrado, model.DataAgendamento.ToShortDateString()));
-
-            TB_AGENDA ultimoAgendamentoServico = agendamentosCliente.OrderByDescending(x => x.DT_AGENDAMENTO)
-                                                    .FirstOrDefault();
-
-            if (ultimoAgendamentoServico != null && ultimoAgendamentoServico.DT_AGENDAMENTO > model.DataAgendamento.AddTicks(model.HorarioAgendamento.Ticks))
-                throw new Exception(ExceptionMessages.DataMenorQueAtual);
-
             if (model.QuantidadeSessao > 0 && model.QuantidadeSessao <= servico.QT_SESSOES)
             {
                 List<TimeSpan> horarios = new List<TimeSpan>

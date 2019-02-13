@@ -23,11 +23,21 @@
         <th>
             @Html.DisplayName("Nome do cliente")
         </th>
+        <th>
+            @Html.DisplayName("Identificador da seção")
+        </th>
+        <th>
+            @Html.DisplayName("Quantidade de seções")
+        </th>
         <th></th>
     </tr>
 
+    @{
+        int index = 1;
+    }
     @foreach (var item in Model.Data)
     {
+
         <tr>
             <td>
                 @Html.DisplayName(item.Hora.ToString())
@@ -38,15 +48,123 @@
             <td>
                 @Html.DisplayName(item.NomePessoa)
             </td>
-
+            <td>
+                @Html.DisplayName(item.IdentificadorSecao)
+            </td>
+            <td>
+                @Html.DisplayName(item.QuantidadeSessaoAgendamento.ToString())
+            </td>
             <td>
                 @if (!string.IsNullOrEmpty(item.NomePessoa))
                 {
-                    @Html.ActionLink("Cancelar Agendamento", "Cancelar", new { /* id=item.PrimaryKey */ })
+                    if (item.QuantidadeSessaoAgendamento == 1)
+                    {
+                        {
+                            var agendamentos = Model.Data.Where(x => x.IdentificadorSecao == item.IdentificadorSecao).OrderBy(x => x.Hora.Ticks);
+                            var primeiroAgendamento = agendamentos.First();
+                            var segundoAgendamento = agendamentos.Last();
+
+
+                            if (item.Hora.Ticks == primeiroAgendamento.Hora.Ticks)
+                            {
+                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#@($"modal-agendamento-{item.IdAgendamento}")">Cancelar</a>
+
+                                <div class="modal fade" id="@($"modal-agendamento-{item.IdAgendamento}")" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Cancelar Agendamento</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            @using (Html.BeginForm("Cancelar", "Agenda", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+
+                                                <div class="modal-body">
+                                                    @Html.Hidden("IdAgendamento", item.IdAgendamento)
+                                                    @Html.HiddenFor(x => Model.DataAgendamentoFormatted)
+                                                    Você realmente deseja cancelar o agendamento para o dia @item.DataAgendamento.ToShortDateString() no horário de @item.Hora.ToString() ?
+                                                    Cancelar este agendamento também cancelara o agendamento do dia @segundoAgendamento.DataAgendamento.ToShortDateString() no horário de @segundoAgendamento.Hora.ToString()
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#@($"modal-agendamento-{item.IdAgendamento}")">Cancelar</a>
+
+                        <div class="modal fade" id="@($"modal-agendamento-{item.IdAgendamento}")" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    @using (Html.BeginForm("Cancelar", "Agenda", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <div class="modal-body">
+                                            @Html.Hidden("IdAgendamento", item.IdAgendamento)
+                                            @Html.HiddenFor(x => Model.DataAgendamentoFormatted)
+                                            Você realmente deseja cancelar o agendamento para o dia @item.DataAgendamento.ToShortDateString() no horário de @item.Hora.ToString()?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                            <button type="submit" class="btn btn-danger">Cancelar</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                 }
                 else
                 {
-                    
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#@($"modal-agendamento-agendar-{index}")">Agendar</a>
+
+                    <div class="modal fade" id="@($"modal-agendamento-agendar-{index}")" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Agendamento para as @item.Hora.ToString(@"hh\:mm") do dia @Model.DataAgendamento.ToShortDateString()</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @using (Html.BeginForm("Agendar", "Agenda", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="modal-body">
+                                        @Html.Hidden("HorarioAgendamento", item.Hora)
+                                        @Html.HiddenFor(x => Model.DataAgendamentoFormatted)
+                                        @Html.TextBox("QuantidadeSessao", 1, new { @type = "number", min = "1", @class = "form-control" })
+                                        @Html.DropDownList("IdServico", Model.Servicos, "Selecione...", new { @class = "form-control" })
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-primary">Agendar</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    index += 1;
                 }
             </td>
         </tr>

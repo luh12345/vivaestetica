@@ -13,6 +13,8 @@ namespace AngolaPrev.VivaEstetica.MVC.Repository
         public DbSet<TB_CLIENTES> TB_CLIENTES { get; set; }
         public DbSet<TB_SERVICOS> TB_SERVICOS { get; set; }
         public DbSet<TB_AGENDA> TB_AGENDA { get; set; }
+        public DbSet<TB_SECOES> TB_SECOES { get; set; }
+        public DbSet<RL_SECAO_AGENDAMENTO> RL_SECAO_AGENDAMENTO { get; set; }
 
         public VivaEsteticaContext() : base(ConfigurationManager.AppSettings["context.name"])
         {

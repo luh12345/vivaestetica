@@ -7,13 +7,13 @@ namespace AngolaPrev.VivaEstetica.MVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class UP_TB_AGENDA : IMigrationMetadata
+    public sealed partial class up_database : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UP_TB_AGENDA));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(up_database));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902120157224_UP_TB_AGENDA"; }
+            get { return "201902130050514_up_database"; }
         }
         
         string IMigrationMetadata.Source

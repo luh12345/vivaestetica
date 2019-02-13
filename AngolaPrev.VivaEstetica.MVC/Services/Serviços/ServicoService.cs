@@ -23,7 +23,8 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
             {
                 DS_SERVICO = model.Descricao,
                 QT_SESSOES = model.TotalSessoes,
-                TP_MINUTOS = model.DuracaoMinutos
+                TP_MINUTOS = model.DuracaoMinutos,
+                BT_MASSAGEM = model.EhMassagem
             });
 
             context.SaveChanges();

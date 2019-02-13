@@ -18,5 +18,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Repository
         [ForeignKey("TB_SERVICOS")]
         public int ID_SERVICO { get; set; }
         public TB_SERVICOS TB_SERVICOS { get; set; }
+        public DateTime DT_CRIACAO { get; set; }
+        public int QT_SESSOES_AGENDAMENTO { get; set; }
     }
 }

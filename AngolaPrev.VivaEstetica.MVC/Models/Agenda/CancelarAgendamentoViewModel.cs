@@ -1,20 +1,19 @@
-﻿using AngolaPrev.VivaEstetica.MVC.Models.Servico;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
 namespace AngolaPrev.VivaEstetica.MVC.Models.Agenda
 {
-    public class FiltroAgendamentoViewModel
+    public class CancelarAgendamentoViewModel
     {
+        public int IdAgendamento { get; set; }
         public DateTime DataAgendamento { get; set; }
         public string DataAgendamentoFormatted
         {
             get
             {
-                return this.DataAgendamento.ToShortDateString();
+                return DataAgendamento.ToShortDateString();
             }
             set
             {
@@ -24,8 +23,5 @@ namespace AngolaPrev.VivaEstetica.MVC.Models.Agenda
                 }
             }
         }
-        public IEnumerable<ObterAgendamentosPorDataViewModel> Data { get; set; }
-        public IEnumerable<SelectListItem> Servicos { get; set; }
-        public int IdServico { get; set; }
     }
 }

@@ -17,5 +17,8 @@ namespace AngolaPrev.VivaEstetica.MVC.Models.Servico
 
         [Required, IntegerValidator(MinValue = 30)]
         public int DuracaoMinutos { get; set; }
+
+        [Required]
+        public bool EhMassagem { get; set; }
     }
 }

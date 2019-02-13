@@ -173,11 +173,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IoC\ContainerFactory.cs" />
-    <Compile Include="Migrations\201902120157224_UP_TB_AGENDA.cs" />
-    <Compile Include="Migrations\201902120157224_UP_TB_AGENDA.Designer.cs">
-      <DependentUpon>201902120157224_UP_TB_AGENDA.cs</DependentUpon>
+    <Compile Include="Migrations\201902130050514_up_database.cs" />
+    <Compile Include="Migrations\201902130050514_up_database.Designer.cs">
+      <DependentUpon>201902130050514_up_database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902130136390_qt_sessoes_agendamento.cs" />
+    <Compile Include="Migrations\201902130136390_qt_sessoes_agendamento.Designer.cs">
+      <DependentUpon>201902130136390_qt_sessoes_agendamento.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Agenda\CadastrarAgendamentoViewModel.cs" />
+    <Compile Include="Models\Agenda\CancelarAgendamentoViewModel.cs" />
     <Compile Include="Models\Agenda\FiltroAgendamentoViewModel.cs" />
     <Compile Include="Models\Agenda\ObterAgendamentosPorDataViewModel.cs" />
     <Compile Include="Models\Clientes\ClienteViewModel.cs" />
@@ -186,8 +192,10 @@
     <Compile Include="Models\Servico\ObterServicoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Contract\IVivaEsteticaContext.cs" />
+    <Compile Include="Repository\RL_SECAO_AGENDAMENTO.cs" />
     <Compile Include="Repository\TB_AGENDA.cs" />
     <Compile Include="Repository\TB_CLIENTES.cs" />
+    <Compile Include="Repository\TB_SECOES.cs" />
     <Compile Include="Repository\TB_SERVICOS.cs" />
     <Compile Include="Repository\VivaEsteticaContext.cs" />
     <Compile Include="Services\Agenda\AgendaService.cs" />
@@ -262,8 +270,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902120157224_UP_TB_AGENDA.resx">
-      <DependentUpon>201902120157224_UP_TB_AGENDA.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902130050514_up_database.resx">
+      <DependentUpon>201902130050514_up_database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902130136390_qt_sessoes_agendamento.resx">
+      <DependentUpon>201902130136390_qt_sessoes_agendamento.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

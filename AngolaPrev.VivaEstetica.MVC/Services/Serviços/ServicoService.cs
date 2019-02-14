@@ -17,7 +17,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
             this.context = context;
         }
 
-        public void Add(CadastroServicoViewModel model)
+        public void Cadastrar(CadastroServicoViewModel model)
         {
             context.TB_SERVICOS.Add(new TB_SERVICOS
             {
@@ -30,7 +30,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
             context.SaveChanges();
         }
 
-        public IEnumerable<ObterServicoViewModel> GetAll()
+        public IEnumerable<ObterServicoViewModel> ObterTodos()
         {
             return context.TB_SERVICOS.ToArray().Select(x => new ObterServicoViewModel
             {

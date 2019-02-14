@@ -14,5 +14,6 @@ namespace AngolaPrev.VivaEstetica.MVC.Common.Const
         public const string QuantidadeDeSessoesNaoPermitida = "Este serviço permite somente {0} seção(s).";
         public const string ServicoJaCadastrado = "Você ja cadastrou este serviço na data de {0}.";
         public const string NaoEPossivelCancelarAgendamento = "Não e possível mais cancelar este agendamento.";
+        public const string DadosInvalidos = "Dados inválidos.";
     }
 }

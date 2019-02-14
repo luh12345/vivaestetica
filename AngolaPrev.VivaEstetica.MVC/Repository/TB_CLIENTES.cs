@@ -10,10 +10,10 @@ namespace AngolaPrev.VivaEstetica.MVC.Repository
     {
         [Key]
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Email { get; set; }
-        public string Cpf { get; set; }
-        public string Endereco { get; set; }
-        public string Telefone { get; set; }
+        public string DS_NOME { get; set; }
+        public string DS_EMAIL { get; set; }
+        public string CPF { get; set; }
+        public string DS_ENDERECO { get; set; }
+        public string NU_TELEFONE { get; set; }
     }
 }

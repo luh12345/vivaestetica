@@ -21,7 +21,7 @@ namespace AngolaPrev.VivaEstetica.MVC.IoC
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterFilterProvider();
-            builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
+            builder.RegisterType<ClienteService>().As<IClienteService>().InstancePerRequest();
             builder.RegisterType<ServicoService>().As<IServicoService>().InstancePerRequest();
             builder.RegisterType<AgendaService>().As<IAgendaService>().InstancePerRequest();
             builder.RegisterType<VivaEsteticaContext>().As<IVivaEsteticaContext>().InstancePerLifetimeScope();

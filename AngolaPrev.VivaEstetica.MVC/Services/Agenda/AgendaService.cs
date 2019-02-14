@@ -36,7 +36,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
                     IdAgendamento = agendamento != null ? agendamento.Id : 0,
                     DataAgendamento = agendamento != null ? agendamento.TB_AGENDA.DT_AGENDAMENTO : default(DateTime),
                     DescricaoServico = agendamento != null ? agendamento.TB_AGENDA.TB_SERVICOS.DS_SERVICO : string.Empty,
-                    NomePessoa = agendamento != null ? agendamento.TB_AGENDA.TB_CLIENTES.Nome : string.Empty,
+                    NomePessoa = agendamento != null ? agendamento.TB_AGENDA.TB_CLIENTES.DS_NOME : string.Empty,
                     Hora = x,
                     QuantidadeSessaoAgendamento = agendamento != null ? agendamento.TB_AGENDA.QT_SESSOES_AGENDAMENTO : 0
                 };
@@ -155,7 +155,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
             //regra de cancelamento para massagens 
             if (agendamento.TB_SERVICOS.BT_MASSAGEM)
             {
-                if ((agendamento.DT_CRIACAO.AddDays(1) - DateTime.Now).Days < 0)
+                if ((DateTime.Now - agendamento.DT_AGENDAMENTO).TotalHours < 24)
                     throw new Exception(ExceptionMessages.NaoEPossivelCancelarAgendamento);
 
                 if (agendamento.QT_SESSOES_AGENDAMENTO == 1)
@@ -175,7 +175,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
             }
             else //regra de cancelamento para demais serviços
             {
-                if ((agendamento.DT_AGENDAMENTO - DateTime.Now).Days < 1)
+                if (DateTime.Now > agendamento.DT_AGENDAMENTO.Date)
                     throw new Exception(ExceptionMessages.NaoEPossivelCancelarAgendamento);
 
                 RemoverSessoes(model.IdAgendamento);
@@ -197,6 +197,22 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
             context.TB_SECOES.RemoveRange(secoes);
             context.RL_SECAO_AGENDAMENTO.RemoveRange(secaoAgendamentos);
             context.SaveChanges();
+        }
+
+        public IEnumerable<string> ObterAgendamentosPendentes(int idCliente)
+        {
+            IEnumerable<IGrouping<string, RL_SECAO_AGENDAMENTO>> agendamentos = context.RL_SECAO_AGENDAMENTO
+                                                             .Include(x => x.TB_AGENDA)
+                                                             .Include(x => x.TB_SECOES)
+                                                             .Include(x => x.TB_AGENDA.TB_SERVICOS)
+                                                             .Where(x => x.TB_AGENDA.ID_CLIENTE == idCliente && x.TB_AGENDA.QT_SESSOES_AGENDAMENTO > 1)
+                                                             .ToArray()
+                                                             .GroupBy(x => x.TB_SECOES.DS_IDENTIFICADOR);
+
+            IEnumerable<string> pendentes = agendamentos.Where(x => x.Any(y => y.TB_AGENDA.QT_SESSOES_AGENDAMENTO < x.Count()))
+                                                          .Select(x => x.First().TB_AGENDA.TB_SERVICOS.DS_SERVICO);
+
+            return pendentes;
         }
     }
 }

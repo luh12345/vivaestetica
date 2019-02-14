@@ -25,7 +25,7 @@ namespace AngolaPrev.VivaEstetica.MVC
 
             string contextName = ConfigurationManager.AppSettings["context.name"];
             string usersTable = ConfigurationManager.AppSettings["users.table"];
-            WebSecurity.InitializeDatabaseConnection(contextName, usersTable, "Id", "Email", true);
+            WebSecurity.InitializeDatabaseConnection(contextName, usersTable, "Id", "DS_EMAIL", true);
         }
     }
 }

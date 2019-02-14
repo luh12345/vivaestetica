@@ -9,5 +9,6 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
         IEnumerable<ObterAgendamentosPorDataViewModel> GetAgendamentoPorData(DateTime data);
         void CadastrarAgendamento(CadastrarAgendamentoViewModel model);
         void CancelarAgendamento(CancelarAgendamentoViewModel model);
+        IEnumerable<string> ObterAgendamentosPendentes(int idCliente);
     }
 }

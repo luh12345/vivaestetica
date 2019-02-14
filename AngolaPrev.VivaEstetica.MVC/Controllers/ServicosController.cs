@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace AngolaPrev.VivaEstetica.MVC.Controllers
 {
+    [Authorize]
     public class ServicosController : BaseController
     {
         private readonly IServicoService servicoService;
@@ -20,7 +21,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
         // GET: Servicos
         public ActionResult Index()
         {
-            IEnumerable<ObterServicoViewModel> model = servicoService.GetAll();
+            IEnumerable<ObterServicoViewModel> model = servicoService.ObterTodos();
             return View(model);
         }
 
@@ -37,7 +38,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
 
             try
             {
-                servicoService.Add(model);
+                servicoService.Cadastrar(model);
                 Callback();
             }
             catch (Exception ex)

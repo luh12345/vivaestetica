@@ -26,6 +26,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Models.Agenda
         }
         public IEnumerable<ObterAgendamentosPorDataViewModel> Data { get; set; }
         public IEnumerable<SelectListItem> Servicos { get; set; }
+        public string MensagemPendentes { get; set; }
         public int IdServico { get; set; }
     }
 }

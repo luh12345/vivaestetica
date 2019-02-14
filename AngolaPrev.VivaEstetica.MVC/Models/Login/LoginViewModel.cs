@@ -8,10 +8,10 @@ namespace AngolaPrev.VivaEstetica.MVC.Models.Login
 {
     public class LoginViewModel
     {
-        [Required, EmailAddress]
+        [Required, EmailAddress, Display(Name = "E-mail")]
         public string Email { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Senha")]
         public string Password { get; set; }
     }
 }

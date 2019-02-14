@@ -10,9 +10,9 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
 {
     public class LoginController : BaseController
     {
-        private readonly IUserService userService;
+        private readonly IClienteService userService;
 
-        public LoginController(IUserService userService)
+        public LoginController(IClienteService userService)
         {
             this.userService = userService;
         }
@@ -22,7 +22,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
         public ActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Agenda");
 
             return View();
         }
@@ -44,7 +44,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Agenda");
         }
 
         public ActionResult Logout()

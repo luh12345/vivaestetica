@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace AngolaPrev.VivaEstetica.MVC.Controllers
 {
+    [Authorize]
     public class AgendaController : BaseController
     {
         private readonly IAgendaService agendaService;
@@ -27,10 +28,14 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
             if (model.DataAgendamento == null || model.DataAgendamento == default(DateTime))
                 model.DataAgendamento = DateTime.Now;
 
-            IEnumerable<ObterServicoViewModel> servicos = servicoService.GetAll();
+            IEnumerable<ObterServicoViewModel> servicos = servicoService.ObterTodos();
 
             model.Servicos = servicos.Select(x => new SelectListItem { Text = x.Descricao, Value = x.IdServico.ToString() });
             model.Data = agendaService.GetAgendamentoPorData(model.DataAgendamento);
+
+            IEnumerable<string> pendentes = agendaService.ObterAgendamentosPendentes(GetUserId());
+            string mensagemPendentes = $"Existem agendamentos para os seguintes serviços: {string.Join(",", pendentes)}";
+            model.MensagemPendentes = mensagemPendentes;
             return View(model);
         }
 

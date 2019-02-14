@@ -1,22 +1,50 @@
-﻿using AngolaPrev.VivaEstetica.MVC.Models.Clientes;
+﻿using AngolaPrev.VivaEstetica.MVC.Common.Const;
+using AngolaPrev.VivaEstetica.MVC.Models.Clientes;
 using AngolaPrev.VivaEstetica.MVC.Services.User;
 using System;
 using System.Web.Mvc;
+using WebMatrix.WebData;
 
 namespace AngolaPrev.VivaEstetica.MVC.Controllers
 {
+
     public class ClienteController : BaseController
     {
-        private readonly IUserService userService;
+        private readonly IClienteService clienteService;
 
-        public ClienteController(IUserService userService)
+        public ClienteController(IClienteService clienteService)
         {
-            this.userService = userService;
+            this.clienteService = clienteService;
         }
 
-        public ActionResult Index()
+        [Authorize]
+        public ActionResult Perfil()
         {
-            return View();
+            var model = clienteService.ObterCliente(GetUserId());
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken, Authorize]
+        public ActionResult EditarPerfil(ObterClienteViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                Callback(new Exception(ExceptionMessages.DadosInvalidos));
+            }
+            else
+            {
+                try
+                {
+                    clienteService.EditarCliente(model);
+                    Callback();
+                }
+                catch (Exception ex)
+                {
+                    Callback(ex);
+                }
+            }
+
+            return RedirectToAction("Perfil");
         }
 
         [HttpGet]
@@ -33,7 +61,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
 
             try
             {
-                userService.Register(model);
+                clienteService.Registrar(model);
                 Callback();
             }
             catch (Exception ex)

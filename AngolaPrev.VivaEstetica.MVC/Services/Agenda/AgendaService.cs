@@ -61,7 +61,14 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
 
                     if (horasServico.Hours == 1)
                     {
-                        horarios.Add(model.HorarioAgendamento.Add(new TimeSpan(0, 30, 0)));
+                        TimeSpan maisTrintaMinutos = model.HorarioAgendamento.Add(new TimeSpan(0, 30, 0));
+                        DateTime proximosTrintaMinutos = model.DataAgendamento.AddTicks(maisTrintaMinutos.Ticks);
+
+                        TB_AGENDA proximoHorarioOcupado = context.TB_AGENDA.SingleOrDefault(x => x.DT_AGENDAMENTO == proximosTrintaMinutos);
+                        if (proximoHorarioOcupado != null)
+                            throw new Exception(string.Format(ExceptionMessages.ProximoHorarioInvalido, proximosTrintaMinutos.ToLongTimeString(), proximosTrintaMinutos.ToLongDateString()));
+
+                        horarios.Add(maisTrintaMinutos);
                     }
 
                     secao = new TB_SECOES
@@ -107,7 +114,14 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
                         TimeSpan horasServico = TimeSpan.FromMinutes(servico.TP_MINUTOS);
                         if (horasServico.Hours == 1 && model.QuantidadeSessao == 1)
                         {
-                            horarios.Add(model.HorarioAgendamento.Add(new TimeSpan(0, 30, 0)));
+                            TimeSpan maisTrintaMinutos = model.HorarioAgendamento.Add(new TimeSpan(0, 30, 0));
+                            DateTime proximosTrintaMinutos = model.DataAgendamento.AddTicks(maisTrintaMinutos.Ticks);
+
+                            TB_AGENDA proximoHorarioOcupado = context.TB_AGENDA.SingleOrDefault(x => x.DT_AGENDAMENTO == proximosTrintaMinutos);
+                            if (proximoHorarioOcupado != null)
+                                throw new Exception(string.Format(ExceptionMessages.ProximoHorarioInvalido, proximosTrintaMinutos.ToLongTimeString(), proximosTrintaMinutos.ToLongDateString()));
+
+                            horarios.Add(maisTrintaMinutos);
                         }
                     }
                     else
@@ -155,7 +169,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
             //regra de cancelamento para massagens 
             if (agendamento.TB_SERVICOS.BT_MASSAGEM)
             {
-                if ((DateTime.Now - agendamento.DT_AGENDAMENTO).TotalHours < 24)
+                if ((agendamento.DT_AGENDAMENTO - DateTime.Now).TotalHours < 24)
                     throw new Exception(ExceptionMessages.NaoEPossivelCancelarAgendamento);
 
                 if (agendamento.QT_SESSOES_AGENDAMENTO == 1)
@@ -209,7 +223,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
                                                              .ToArray()
                                                              .GroupBy(x => x.TB_SECOES.DS_IDENTIFICADOR);
 
-            IEnumerable<string> pendentes = agendamentos.Where(x => x.Any(y => y.TB_AGENDA.QT_SESSOES_AGENDAMENTO < x.Count()))
+            IEnumerable<string> pendentes = agendamentos.Where(x => x.Any(y => x.Count() < y.TB_AGENDA.QT_SESSOES_AGENDAMENTO))
                                                           .Select(x => x.First().TB_AGENDA.TB_SERVICOS.DS_SERVICO);
 
             return pendentes;

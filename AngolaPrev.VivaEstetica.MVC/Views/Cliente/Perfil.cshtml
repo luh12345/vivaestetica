@@ -56,8 +56,8 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="button" id="editar-button" value="Editar" onclick="liberarForm()" class="btn btn-primary" />
-                <input type="button" id="cancelar-button" onclick="bloquearForm()" value="Cancelar" class="btn btn-danger hidden" />
-                <input type="submit" id="enviar-button" value="Enviar" class="btn btn-primary hidden" />
+                <input type="button" id="cancelar-button" onclick="bloquearForm()" value="Cancelar" class="btn btn-danger" />
+                <input type="submit" id="enviar-button" value="Enviar" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -67,15 +67,18 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script>
+    $("#cancelar-button").hide();
+    $("#enviar-button").hide();
+
     function liberarForm() {
         $("#Nome").removeAttr("disabled");
         $("#Endereco").removeAttr("disabled");
         $("#Cpf").removeAttr("disabled");
         $("#Telefone").removeAttr("disabled");
 
-        $("#editar-button").addClass('hidden');
-        $("#cancelar-button").removeClass('hidden');
-        $("#enviar-button").removeClass('hidden');
+        $("#editar-button").hide();
+        $("#cancelar-button").show();
+        $("#enviar-button").show();
     }
 
     function bloquearForm() {
@@ -86,8 +89,8 @@
         $("#Cpf").attr("disabled", "true");
         $("#Telefone").attr("disabled", "true");
 
-        $("#editar-button").removeClass('hidden');
-        $("#cancelar-button").addClass('hidden');
-        $("#enviar-button").addClass('hidden');
+        $("#editar-button").show();
+        $("#cancelar-button").hide();
+        $("#enviar-button").hide();
     }
 </script>

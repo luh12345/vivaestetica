@@ -34,8 +34,12 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
             model.Data = agendaService.GetAgendamentoPorData(model.DataAgendamento);
 
             IEnumerable<string> pendentes = agendaService.ObterAgendamentosPendentes(GetUserId());
-            string mensagemPendentes = $"Existem agendamentos para os seguintes serviços: {string.Join(",", pendentes)}";
-            model.MensagemPendentes = mensagemPendentes;
+            if (pendentes.Any())
+            {
+                string mensagemPendentes = $"Existem agendamentos pendentes para os seguintes serviços: {string.Join(",", pendentes)}";
+                model.MensagemPendentes = mensagemPendentes;
+            }
+
             return View(model);
         }
 

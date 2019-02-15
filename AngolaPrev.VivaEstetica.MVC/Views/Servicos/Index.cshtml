@@ -167,6 +167,10 @@
     }
 </div>
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
 <script>
     $("#secao_massagem").on('click', function () {
         let value = $(this).val();

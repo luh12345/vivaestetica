@@ -3,7 +3,7 @@ Processo seletivo para AngolaPrev
 
 Sistema para agendamento de horários em clinicas de estetica.
 
-Problema apresentado:
+Regras apresentadas:
 
 A Clínica Viva Estética precisa de um aplicativo para o agendamento de horários de seus
 clientes. Você é o responsável pelo projecto e deve definir as melhores práticas para o

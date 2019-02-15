@@ -13,5 +13,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Models.Login
 
         [Required, Display(Name = "Senha")]
         public string Password { get; set; }
+        [Display(Name = "Manter Logado")]
+        public bool ManterLogado { get; set; }
     }
 }

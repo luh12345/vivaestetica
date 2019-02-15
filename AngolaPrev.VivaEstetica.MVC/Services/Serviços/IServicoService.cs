@@ -8,5 +8,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
         void Cadastrar(CadastroServicoViewModel model);
         ObterServicoViewModel Get(int IdServico);
         IEnumerable<ObterServicoViewModel> ObterTodos();
+        void Editar(ObterServicoViewModel model);
+        void Deletar(int idServico);
     }
 }

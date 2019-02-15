@@ -184,6 +184,7 @@
     <Compile Include="Models\Agenda\FiltroAgendamentoViewModel.cs" />
     <Compile Include="Models\Agenda\ObterAgendamentoPendenteViewModel.cs" />
     <Compile Include="Models\Agenda\ObterAgendamentosPorDataViewModel.cs" />
+    <Compile Include="Models\Agenda\ObterAgendamentoViewModel.cs" />
     <Compile Include="Models\Clientes\ClienteViewModel.cs" />
     <Compile Include="Models\Clientes\ObterClienteViewModel.cs" />
     <Compile Include="Models\Login\LoginViewModel.cs" />
@@ -199,6 +200,8 @@
     <Compile Include="Repository\VivaEsteticaContext.cs" />
     <Compile Include="Services\Agenda\AgendaService.cs" />
     <Compile Include="Services\Agenda\IAgendaService.cs" />
+    <Compile Include="Services\Login\ILoginService.cs" />
+    <Compile Include="Services\Login\LoginService.cs" />
     <Compile Include="Services\Serviços\IServicoService.cs" />
     <Compile Include="Services\Serviços\ServicoService.cs" />
     <Compile Include="Services\User\ClienteService.cs" />
@@ -287,7 +290,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Cliente\Cadastro.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Servicos\Cadastro.cshtml" />
     <Content Include="Views\Servicos\Index.cshtml" />
     <Content Include="Views\Agenda\Index.cshtml" />
     <Content Include="Views\Cliente\Perfil.cshtml" />
@@ -300,6 +302,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Agenda\MinhaAgenda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\Exceptions\" />

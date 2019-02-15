@@ -1,0 +1,47 @@
+﻿@model IEnumerable<IGrouping<DateTime, AngolaPrev.VivaEstetica.MVC.Models.Agenda.ObterAgendamentoViewModel>>
+
+@{
+    ViewBag.Title = "Minha Agenda";
+}
+
+<div id="titulo">
+    <h1>Minha agenda</h1>
+    <span>Bem vindo ao Viva Estética, @User.Identity.Name</span>
+</div>
+<hr class="hr_titulo">
+<div id="conteudo_modulo_minha_agenda" class="conteudo_modulo">
+    @if (Model != null && Model.Any())
+    {
+        <table>
+            @foreach (var item in Model)
+            {
+                <thead>
+                    <tr>
+                        <th>@item.Key.ToLongDateString()</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var servico in item)
+                    {
+                        <tr>
+                            <td>@servico.NomeServico - @servico.HoraAgendamento.ToString(@"hh\:mm")</td>
+                            <td>
+                                <a href="@Url.Action("Index", "Agenda", new { DataAgendamento = servico.DataAgendamento})">
+                                    Cancelar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            Você não possui nenhum agendamento.
+        </div>
+    }
+</div>
+

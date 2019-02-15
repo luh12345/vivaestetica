@@ -1,4 +1,5 @@
-﻿using AngolaPrev.VivaEstetica.MVC.Models.Servico;
+﻿using AngolaPrev.VivaEstetica.MVC.Common.Const;
+using AngolaPrev.VivaEstetica.MVC.Models.Servico;
 using AngolaPrev.VivaEstetica.MVC.Services.Serviços;
 using System;
 using System.Collections.Generic;
@@ -25,28 +26,64 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
             return View(model);
         }
 
-        public ActionResult Cadastro()
-        {
-            return View();
-        }
-
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Cadastro(CadastroServicoViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(model);
-
-            try
             {
-                servicoService.Cadastrar(model);
+                Callback(new Exception(ExceptionMessages.DadosInvalidos));
+            }
+            else
+            {
+                try
+                {
+                    servicoService.Cadastrar(model);
+                    Callback();
+                }
+                catch (Exception ex)
+                {
+                    Callback(ex);
+                    return View(model);
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Editar(ObterServicoViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                Callback(new Exception(ExceptionMessages.DadosInvalidos));
+            }
+            else
+            {
+                try
+                {
+                    servicoService.Editar(model);
+                    Callback();
+                }
+                catch (Exception ex)
+                {
+                    Callback(ex);
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Deletar(int IdServico)
+        {
+            if (IdServico <= 0)
+            {
+                Callback(new Exception(ExceptionMessages.DadosInvalidos));
+            }
+            else
+            {
+                servicoService.Deletar(IdServico);
                 Callback();
             }
-            catch (Exception ex)
-            {
-                Callback(ex);
-                return View(model);
-            }
-
             return RedirectToAction("Index");
         }
     }

@@ -37,6 +37,8 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
                     DataAgendamento = agendamento != null ? agendamento.TB_AGENDA.DT_AGENDAMENTO : default(DateTime),
                     DescricaoServico = agendamento != null ? agendamento.TB_AGENDA.TB_SERVICOS.DS_SERVICO : string.Empty,
                     NomePessoa = agendamento != null ? agendamento.TB_AGENDA.TB_CLIENTES.DS_NOME : string.Empty,
+                    IdCliente = agendamento != null ? agendamento.TB_AGENDA.ID_CLIENTE : 0,
+                    IdServico = agendamento != null ? agendamento.TB_AGENDA.ID_SERVICO : 0,
                     Hora = x,
                     QuantidadeSessaoAgendamento = agendamento != null ? agendamento.TB_AGENDA.QT_SESSOES_AGENDAMENTO : 0
                 };
@@ -170,7 +172,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
             if (agendamento.TB_SERVICOS.BT_MASSAGEM)
             {
                 if ((agendamento.DT_AGENDAMENTO - DateTime.Now).TotalHours < 24)
-                    throw new Exception(ExceptionMessages.NaoEPossivelCancelarAgendamento);
+                    throw new Exception(ExceptionMessages.CancelarVinteQuatroHorasAntecedencia);
 
                 if (agendamento.QT_SESSOES_AGENDAMENTO == 1)
                 {
@@ -227,6 +229,21 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
                                                           .Select(x => x.First().TB_AGENDA.TB_SERVICOS.DS_SERVICO);
 
             return pendentes;
+        }
+
+        public IEnumerable<IGrouping<DateTime, ObterAgendamentoViewModel>> ObterHistoricoAgendamento(int idCliente)
+        {
+            return context.TB_AGENDA.Include(x => x.TB_SERVICOS)
+                                    .Where(x => x.ID_CLIENTE == idCliente)
+                                    .ToArray()
+                                    .Select(x => new ObterAgendamentoViewModel
+                                    {
+                                        HoraAgendamento = x.DT_AGENDAMENTO.TimeOfDay,
+                                        DataAgendamento = x.DT_AGENDAMENTO,
+                                        NomeServico = x.TB_SERVICOS.DS_SERVICO
+                                    })
+                                    .OrderByDescending(x => x.DataAgendamento)
+                                    .GroupBy(x => x.DataAgendamento.Date);
         }
     }
 }

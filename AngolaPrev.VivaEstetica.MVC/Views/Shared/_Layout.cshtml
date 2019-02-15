@@ -22,46 +22,33 @@
             <hr class="hr_menu">
 
             <ul id="navegacao">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "Agenda")">
-                            <img src="~/Content/imgs/clock.svg" alt="icone" width="30" height="30">
-                            <span>Agenda</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index", "Servicos")">
-                            <img src="~/Content/imgs/clock.svg" alt="icone" width="30" height="30">
-                            <span>Serviços</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Perfil", "Cliente")">
-                            <img src="~/Content/imgs/clock.svg" alt="icone" width="30" height="30">
-                            <span>Perfil</span>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Login", "Login")" class="no-underline">
-                            <img src="~/Content/imgs/clock.svg" alt="icone" width="30" height="30">
-                            <span>Login</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Cadastro", "Cliente")" class="no-underline">
-                            <img src="~/Content/imgs/clock.svg" alt="icone" width="30" height="30">
-                            <span>Registrar</span>
-                        </a>
-                    </li>
-                }
+                <li>
+                    <a href="@Url.Action("Index", "Agenda")">
+                        <img src="~/Content/imgs/clock.svg" alt="icone" width="30" height="30">
+                        <span>Agenda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("MinhaAgenda", "Agenda")">
+                        <img src="~/Content/imgs/clock.svg" alt="icone" width="30" height="30">
+                        <span>Minha Agenda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Servicos")">
+                        <img src="~/Content/imgs/clock.svg" alt="icone" width="30" height="30">
+                        <span>Serviços</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Perfil", "Cliente")">
+                        <img src="~/Content/imgs/clock.svg" alt="icone" width="30" height="30">
+                        <span>Perfil</span>
+                    </a>
+                </li>
+
             </ul>
-
             <hr class="hr_menu">
-
             <ul id="sair">
                 <li>
                     <a href="@Url.Action("Logout","Login")">

@@ -4,48 +4,177 @@
     ViewBag.Title = "Serviços cadastrados";
 }
 
-<h2>Serviços cadastrados</h2>
+<div id="titulo">
+    <h1>Serviços cadastrados</h1>
+    <span>Bem vindo ao Viva Estética, @User.Identity.Name</span>
+</div>
+<hr class="hr_titulo">
+<div id="filtros">
+    <button data-toggle="modal" data-target="#modalNewServico">CRIAR NOVO SERVIÇO</button>
+</div>
+<div id="conteudo_modulo_servico" class="conteudo_modulo">
+    <table>
+        <thead>
+            <tr>
+                <th>Código do serviço</th>
+                <th>Descrição</th>
+                <th>Qtd. de seções</th>
+                <th>Duração (minutos)</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="tupla_preenchida">
+                    <td>@item.IdServico</td>
+                    <td>@item.Descricao</td>
+                    <td>@item.TotalSecoes</td>
+                    <td>@item.Duracao</td>
+                    <td>
+                        <a data-toggle="modal" data-target="@($"#modalEditServico{item.IdServico}")">Editar</a> <span> | </span> <a data-toggle="modal" data-target="@($"#modalRemoverServico{item.IdServico}")">Remover</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<p>
-    @Html.ActionLink("Criar novo serviço", "Cadastro")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdServico)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalSessoes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duracao)
-        </th>
-        <th></th>
-    </tr>
+    <!-- Modal -->
+    <div class="modal fade" id="modalNewServico" tabindex="-1" role="dialog" aria-labelledby="modalNewServicoLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNewServicoLabel">Novo serviço</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("Cadastro", "Servicos", FormMethod.Post))
+                {
+                    <div class="modal-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.AntiForgeryToken()
+                        <div class="col-12 form-group">
+                            <label for="descricao">Descrição</label>
+                            <input type="text" name="Descricao" class="form-control" id="desc_servico" required>
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="qtd_secao">Quantidade de seções</label>
+                            <select name="TotalSessoes" id="qtd_secao" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="duracao_secao">Duração da seção</label>
+                            <select name="DuracaoMinutos" id="duracao_secao" class="form-control">
+                                <option value="30">30 min</option>
+                                <option value="60">60 min</option>
+                            </select>
+                        </div>
+                        <div class="col-12 form-group">
+                            <input type="checkbox" name="EhMassagem" id="secao_massagem" value="false">
+                            <label for="secao_massagem">Massagem</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdServico)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalSessoes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duracao)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Editar", new { item.IdServico }) |
-                @Html.ActionLink("Remover", "Remover", new { item.IdServico })
-            </td>
-        </tr>
-    }
+        <!-- Modais de remover e editar para cada item -->
+        <div class="modal fade" id="@($"modalEditServico{item.IdServico}")" tabindex="-1" role="dialog" aria-labelledby="@($"modalEditServicoLabel{item.IdServico}")" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="@($"modalEditServicoLabel{item.IdServico}")">Edição de serviço</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @using (Html.BeginForm("Editar", "Servicos", FormMethod.Post))
+                    {
+                        <div class="modal-body">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.Hidden("IdServico", item.IdServico)
 
-</table>
+                            <div class="col-12 form-group">
+                                @Html.LabelFor(x => item.Descricao)
+                                @Html.TextBox("Descricao", item.Descricao, new { @class = "form-control" })
+                                @Html.ValidationMessage("Descricao", "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="qtd_secao">Quantidade de seções</label>
+                                <select name="TotalSessoes" id="qtd_secao" class="form-control">
+                                    <option value="1" @(item.TotalSecoes == 1 ? "selected" : string.Empty)>1</option>
+                                    <option value="2" @(item.TotalSecoes == 2 ? "selected" : string.Empty)>2</option>
+                                </select>
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="duracao_secao">Duração da seção</label>
+                                <select name="Duracao" id="duracao_secao" class="form-control">
+                                    <option value="30" @(item.Duracao == 30 ? "selected" : string.Empty)>30 min</option>
+                                    <option value="60" @(item.Duracao == 60 ? "selected" : string.Empty)>60 min</option>
+                                </select>
+                            </div>
+                            <div class="col-12 form-group">
+                                @Html.CheckBoxFor(x => item.EhMassagem)
+                                @Html.LabelFor(x => item.EhMassagem)
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="@($"modalRemoverServico{item.IdServico}")" tabindex="-1" role="dialog" aria-labelledby="@($"modalRemoverServicoLabel{item.IdServico}")" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="@($"modalRemoverServicoLabel{item.IdServico}")">Remover serviço</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @using (Html.BeginForm("Deletar", "Servicos", FormMethod.Post))
+                    {
+                        <div class="modal-body">
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("IdServico", item.IdServico)
+
+                            <span class="alert-danger">Tem certeza de que deseja remover o serviço @item.Descricao?</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Confirmar</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $("#secao_massagem").on('click', function () {
+        let value = $(this).val();
+        if (value == 'true') {
+            $(this).val('false')
+        }
+        else {
+            $(this).val('true')
+        }
+    })
+</script>

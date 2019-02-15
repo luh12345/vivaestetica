@@ -43,6 +43,12 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
             return View(model);
         }
 
+        public ActionResult MinhaAgenda()
+        {
+            IEnumerable<IGrouping<DateTime, ObterAgendamentoViewModel>> model = agendaService.ObterHistoricoAgendamento(GetUserId());
+            return View(model);
+        }
+
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Agendar(CadastrarAgendamentoViewModel model)
         {
@@ -55,7 +61,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
                     DateTime dataAgendamento = model.DataAgendamento.AddTicks(model.HorarioAgendamento.Ticks);
                     if (dataAgendamento < DateTime.Now)
                     {
-                        Callback(new Exception(ExceptionMessages.DataMenorQueAtual));
+                        Callback(new Exception(ExceptionMessages.DataNaoDisponivel));
                         return RedirectToAction("Index", new { model.DataAgendamento });
                     }
 

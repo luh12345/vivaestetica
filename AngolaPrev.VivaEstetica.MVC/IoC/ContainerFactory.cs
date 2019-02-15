@@ -1,6 +1,7 @@
 ﻿using AngolaPrev.VivaEstetica.MVC.Repository;
 using AngolaPrev.VivaEstetica.MVC.Repository.Contract;
 using AngolaPrev.VivaEstetica.MVC.Services.Agenda;
+using AngolaPrev.VivaEstetica.MVC.Services.Login;
 using AngolaPrev.VivaEstetica.MVC.Services.Serviços;
 using AngolaPrev.VivaEstetica.MVC.Services.User;
 using Autofac;
@@ -24,6 +25,7 @@ namespace AngolaPrev.VivaEstetica.MVC.IoC
             builder.RegisterType<ClienteService>().As<IClienteService>().InstancePerRequest();
             builder.RegisterType<ServicoService>().As<IServicoService>().InstancePerRequest();
             builder.RegisterType<AgendaService>().As<IAgendaService>().InstancePerRequest();
+            builder.RegisterType<LoginService>().As<ILoginService>().InstancePerRequest();
             builder.RegisterType<VivaEsteticaContext>().As<IVivaEsteticaContext>().InstancePerLifetimeScope();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly());

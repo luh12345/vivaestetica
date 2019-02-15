@@ -1,74 +1,53 @@
 ﻿@model AngolaPrev.VivaEstetica.MVC.Models.Clientes.ObterClienteViewModel
 
-@{
-    ViewBag.Title = "Perfil";
-}
+<div id="titulo">
+    <h1>Perfil</h1>
+    <span>Bem vindo ao Viva Estética, @User.Identity.Name</span>
+</div>
+<hr class="hr_titulo">
+<div id="filtros">
+    <button id="editar-button" onclick="liberarForm()">Editar perfil</button>
+</div>
+<div id="conteudo_modulo_perfil" class="conteudo_modulo">
+    @using (Html.BeginForm("EditarPerfil", "Cliente", FormMethod.Post, new { @id = "perfilForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.Id)
 
-<h2>Seus dados</h2>
-
-@using (Html.BeginForm("EditarPerfil", "Cliente", FormMethod.Post, new { @id = "perfilForm" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(x => x.Id)
-    <div class="form-horizontal">
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-group form_width">
+            @Html.LabelFor(model => model.Nome)
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-group form_width">
+            @Html.LabelFor(model => model.Email)
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
-                @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-group form_width">
+            @Html.LabelFor(model => model.Cpf)
+            @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
+            @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
-                @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-group form_width">
+            @Html.LabelFor(model => model.Endereco)
+            @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
+            @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Telefone, new { @class = "form-control", @disabled = true })
-                @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-group form_width">
+            @Html.LabelFor(model => model.Telefone)
+            @Html.TextBoxFor(model => model.Telefone, new { @class = "form-control", @disabled = true })
+            @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="button" id="editar-button" value="Editar" onclick="liberarForm()" class="btn btn-primary" />
-                <input type="button" id="cancelar-button" onclick="bloquearForm()" value="Cancelar" class="btn btn-danger" />
-                <input type="submit" id="enviar-button" value="Enviar" class="btn btn-primary" />
-            </div>
+        <div class="form-group form_width" id="bnts_perfil">
+            <button type="button" id="cancelar-button" onclick="bloquearForm()" class="btn btn-secondary">Cancelar</button>
+            <button type="submit" id="enviar-button" class="btn btn-primary">Salvar</button>
         </div>
-    </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    }
+</div>
 <script>
-    $("#cancelar-button").hide();
-    $("#enviar-button").hide();
+    $("#bnts_perfil").hide();
 
     function liberarForm() {
         $("#Nome").removeAttr("disabled");
@@ -77,8 +56,7 @@
         $("#Telefone").removeAttr("disabled");
 
         $("#editar-button").hide();
-        $("#cancelar-button").show();
-        $("#enviar-button").show();
+        $("#bnts_perfil").show();
     }
 
     function bloquearForm() {
@@ -90,7 +68,13 @@
         $("#Telefone").attr("disabled", "true");
 
         $("#editar-button").show();
-        $("#cancelar-button").hide();
-        $("#enviar-button").hide();
+        $("#bnts_perfil").hide();
     }
+
+    //$("#cpf_perfil").mask('000.000.000-00');
+    //$("#tel_perfil").mask('(00) 0 0000-0000');
 </script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

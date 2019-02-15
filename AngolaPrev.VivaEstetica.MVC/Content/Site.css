@@ -25,6 +25,132 @@ dl, ol, ul {
     margin-bottom: 0 !important;
 }
 
+#login {
+    width: 100%;
+    height: 100%;
+    background: #56CCF2;
+}
+
+#login_block {
+    width: 30%;
+    padding: 20px 40px;
+    background: #F2F2F2;
+    box-shadow: 0 0 10px 2px rgba(28, 168, 212, 0.4);
+    border-radius: 2px;
+    height: max-content;
+    position: relative;
+    top: 50%;
+    margin: 0 auto;
+    transform: translateY(-50%);
+}
+
+    #login_block h1 {
+        text-align: center;
+        color: #454554;
+    }
+
+    #login_block label {
+        font-size: 12px;
+        font-weight: bold;
+        margin-left: 8px;
+    }
+
+    #login_block input[type="text"], #login_block input[type="password"] {
+        padding: 15px 10px;
+        background: transparent;
+        color: #454554;
+        border: 1px solid #454554;
+        border-radius: 2px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        transition: ease-in-out .1s;
+    }
+
+    #login_block input[type="checkbox"] {
+        margin-top: 5px;
+    }
+
+    #login_block button {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 8px 50px;
+        background: transparent;
+        color: #454554;
+        border: 1px solid #454554;
+        border-radius: 2px;
+        margin-top: 10px;
+        font-weight: bold;
+        transition: ease-in-out .1s;
+    }
+
+        #login_block button:hover {
+            background: #454554;
+            color: #F2F2F2;
+            border: 1px solid #F2F2F2;
+        }
+
+#cadastro {
+    width: 100%;
+    height: 100%;
+    background: #56CCF2;
+}
+
+#cadastro_block {
+    width: 40%;
+    padding: 20px 40px;
+    background: #F2F2F2;
+    box-shadow: 0 0 10px 2px rgba(28, 168, 212, 0.4);
+    border-radius: 2px;
+    height: max-content;
+    position: relative;
+    top: 50%;
+    margin: 0 auto;
+    transform: translateY(-50%);
+}
+
+    #cadastro_block h1 {
+        text-align: center;
+        color: #454554;
+    }
+
+    #cadastro_block label {
+        font-size: 12px;
+        font-weight: bold;
+        margin-left: 8px;
+    }
+
+    #cadastro_block input[type="email"], #cadastro_block input[type="password"], #cadastro_block input[type="text"] {
+        padding: 15px 10px;
+        background: transparent;
+        color: #454554;
+        border: 1px solid #454554;
+        border-radius: 2px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        transition: ease-in-out .1s;
+    }
+
+    #cadastro_block button {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 8px 50px;
+        background: transparent;
+        color: #454554;
+        border: 1px solid #454554;
+        border-radius: 2px;
+        margin-top: 10px;
+        font-weight: bold;
+        transition: ease-in-out .1s;
+    }
+
+        #cadastro_block button:hover {
+            background: #454554;
+            color: #F2F2F2;
+            border: 1px solid #F2F2F2;
+        }
+
 #menu {
     width: 20%;
     height: 100%;
@@ -40,28 +166,29 @@ dl, ol, ul {
 
     #menu #logo {
         width: 100%;
-        height: 22%;
+        text-align: center;
+        height: 19.5%;
         clear: both;
+        padding: 25px 20px 0;
+        ;
     }
-
-        #menu #logo img {
-            width: 80%;
-            height: 51%;
-            position: relative;
-            left: 50%;
-            transform: translate(-50%,30%);
-        }
 
         #menu #logo h2 {
             text-align: center;
-            margin-top: 35px;
-            font-size: 18px;
+            font-size: 28px;
             font-weight: bold;
+        }
+
+        #menu #logo span {
+            text-align: center;
+            margin-top: 35px;
+            font-size: 14px;
+            font-weight: 100;
         }
 
     #menu #navegacao {
         width: 100%;
-        height: calc(69% - 1px);
+        height: calc(71.5% - 1px);
         clear: both;
         list-style-type: none;
     }
@@ -102,6 +229,10 @@ dl, ol, ul {
 
         #menu li:hover {
             background: rgba(28, 168, 212, 0.4);
+        }
+
+        #menu li a {
+            color: #F2F2F2;
         }
 
         #menu li img, #menu li span {
@@ -203,7 +334,8 @@ dl, ol, ul {
 
         #conteudo #filtros button {
             font-size: 16px;
-            width: 85px;
+            min-width: 85px;
+            padding: 0 10px;
             height: 40px;
             border: 2px solid #56CCF2;
             border-radius: 2px;
@@ -212,7 +344,7 @@ dl, ol, ul {
             font-weight: bold;
             color: #56CCF2;
             text-align: center;
-            transition: ease-in-out .2s;
+            transition: ease-in-out .1s;
         }
 
             #conteudo #filtros button:hover {
@@ -220,81 +352,212 @@ dl, ol, ul {
                 background: #56CCF2;
             }
 
-    #conteudo #conteudo_modulo {
+    #conteudo .conteudo_modulo {
         width: 100%;
         height: 83%;
         clear: both;
         overflow: auto;
     }
 
-        #conteudo #conteudo_modulo table {
+        #conteudo .conteudo_modulo table {
             width: 100%;
             text-align: center;
             border: 2px solid #56CCF2;
             overflow: auto;
             border-radius: 2px;
-            height: 100%;
         }
 
-            #conteudo #conteudo_modulo table thead tr {
+            #conteudo .conteudo_modulo table thead tr {
                 background: #56CCF2;
                 color: #F2F2F2;
                 height: 40px;
             }
 
-                #conteudo #conteudo_modulo table thead tr th {
+                #conteudo .conteudo_modulo table thead tr th {
                     font-size: 14px;
                 }
 
-                    #conteudo #conteudo_modulo table thead tr th:not(:last-child) {
-                        border-right: 2px solid #F2F2F2;
-                    }
+    #conteudo #conteudo_modulo_agenda table thead tr th:nth-of-type(1) {
+        width: 12%;
+    }
 
-        #conteudo #conteudo_modulo table {
-            width: 100%;
-            min-height: 100%;
+    #conteudo #conteudo_modulo_agenda table thead tr th:nth-of-type(2) {
+        width: 35%;
+    }
+
+    #conteudo #conteudo_modulo_agenda table thead tr th:nth-of-type(3) {
+        width: 35%;
+    }
+
+    #conteudo #conteudo_modulo_agenda table thead tr th:nth-of-type(4) {
+        width: 18%;
+    }
+
+    #conteudo #conteudo_modulo_servico table thead tr th:nth-of-type(1) {
+        width: 10%;
+    }
+
+    #conteudo #conteudo_modulo_servico table thead tr th:nth-of-type(2) {
+        width: 40%;
+    }
+
+    #conteudo #conteudo_modulo_servico table thead tr th:nth-of-type(3) {
+        width: 10%;
+    }
+
+    #conteudo #conteudo_modulo_servico table thead tr th:nth-of-type(4) {
+        width: 10%;
+    }
+
+    #conteudo #conteudo_modulo_servico table thead tr th:nth-of-type(5) {
+        width: 30%;
+    }
+
+    #conteudo .conteudo_modulo table thead tr th:not(:last-child) {
+        border-right: 2px solid #F2F2F2;
+    }
+
+    #conteudo .conteudo_modulo table {
+        width: 100%;
+        max-height: 100%;
+    }
+
+        #conteudo .conteudo_modulo table tbody tr:not(:last-child) {
+            border-bottom: 1px solid #E0E0E0;
         }
 
-            #conteudo #conteudo_modulo table tbody tr:not(:last-child) {
-                border-bottom: 1px solid #E0E0E0;
+        #conteudo .conteudo_modulo table tbody tr td {
+            padding: 5px 15px;
+            font-size: 14px;
+            height: 41px;
+        }
+
+    #conteudo #conteudo_modulo_agenda table tbody .tupla_preenchida td {
+        font-weight: bold;
+        color: #56CCF2;
+    }
+
+        #conteudo #conteudo_modulo_agenda table tbody .tupla_preenchida td:last-child {
+            color: #EB5757;
+        }
+
+            #conteudo #conteudo_modulo_agenda table tbody .tupla_preenchida td:last-child a:hover {
+                text-decoration: underline;
             }
 
-            #conteudo #conteudo_modulo table tbody tr td {
-                padding: 5px 15px;
-                font-size: 14px;
-                height: 41px;
+    #conteudo #conteudo_modulo_servico table tbody .tupla_preenchida td {
+        font-weight: bold;
+        color: #454545;
+    }
+
+        #conteudo #conteudo_modulo_servico table tbody .tupla_preenchida td:last-child {
+            color: #56CCF2;
+        }
+
+            #conteudo #conteudo_modulo_servico table tbody .tupla_preenchida td:last-child a {
+                margin-left: 5px;
+                margin-right: 5px;
             }
 
-            #conteudo #conteudo_modulo table tbody .tupla_preenchida td {
-                font-weight: bold;
-                color: #56CCF2;
-            }
-
-                #conteudo #conteudo_modulo table tbody .tupla_preenchida td:last-child {
-                    color: #EB5757;
+                #conteudo #conteudo_modulo_servico table tbody .tupla_preenchida td:last-child a:hover {
+                    text-decoration: underline;
                 }
 
-            #conteudo #conteudo_modulo table tbody tr td:not(:last-child) {
-                border-right: 2px solid #E0E0E0;
+    #conteudo .conteudo_modulo table tbody tr td:not(:last-child) {
+        border-right: 2px solid #E0E0E0;
+    }
+
+    #conteudo #conteudo_modulo_agenda table tbody tr td:nth-of-type(2),
+    #conteudo #conteudo_modulo_agenda table tbody tr td:nth-of-type(3) {
+        text-align: left;
+    }
+
+    #conteudo #conteudo_modulo_servico table tbody tr td:nth-of-type(2) {
+        text-align: left;
+    }
+
+    #conteudo .conteudo_modulo table tbody tr td:last-child {
+        cursor: pointer;
+    }
+
+    #conteudo #conteudo_modulo_servico #modalNewServico .form-group:last-child,
+    #conteudo #conteudo_modulo_servico #modalEditServico .form-group:last-child {
+        padding: 10px 0 0 40px;
+    }
+
+    #conteudo #conteudo_modulo_perfil form {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+        #conteudo #conteudo_modulo_perfil form .form_width {
+            width: 100%;
+            padding-left: 2%;
+            padding-right: 58%;
+        }
+
+        #conteudo #conteudo_modulo_perfil form #bnts_perfil {
+            display: none;
+        }
+
+    #conteudo #conteudo_modulo_minha_agenda {
+        margin-top: 35px;
+        height: calc(92.5% - 35px);
+    }
+
+        #conteudo #conteudo_modulo_minha_agenda table {
+            width: 100%;
+            text-align: left;
+            border: none;
+            overflow: auto;
+            border-radius: 2px;
+        }
+
+            #conteudo #conteudo_modulo_minha_agenda table thead tr {
+                background: transparent;
+                height: 40px;
             }
 
-            #conteudo #conteudo_modulo table tbody tr td:nth-of-type(2),
-            #conteudo #conteudo_modulo table tbody tr td:nth-of-type(3) {
-                text-align: left;
+            #conteudo #conteudo_modulo_minha_agenda table thead:not(:first-child) tr {
+                border-top: 1px solid #E0E0E0;
             }
 
-            #conteudo #conteudo_modulo table tbody tr td:last-child {
-                cursor: pointer;
+            #conteudo #conteudo_modulo_minha_agenda table thead tr th:not(:last-child) {
+                border-right: none;
             }
 
-            #conteudo #conteudo_modulo table tbody tr:hover td,
-            #conteudo #conteudo_modulo table tbody .tupla_preenchida:hover td {
-                background: rgba(86, 204, 242, .5);
-                font-weight: bold;
-                color: #FFFFFF;
+            #conteudo #conteudo_modulo_minha_agenda table tbody tr td:not(:last-child) {
+                border-right: none;
             }
 
-.no-underline {
-    color: #FFFFFF;
-    text-decoration: none;
-}
+            #conteudo #conteudo_modulo_minha_agenda table tbody tr:not(:last-child) {
+                border-bottom: none;
+            }
+
+            #conteudo #conteudo_modulo_minha_agenda table tbody tr:last-child {
+                border-bottom: none;
+            }
+
+            #conteudo #conteudo_modulo_minha_agenda table th {
+                font-size: 16px;
+                color: #999999;
+                padding-left: 15px;
+            }
+
+            #conteudo #conteudo_modulo_minha_agenda table td {
+                font-size: 14px;
+                color: #666666;
+                padding-left: 35px;
+            }
+
+                #conteudo #conteudo_modulo_minha_agenda table td:last-of-type {
+                    text-align: center;
+                }
+
+                    #conteudo #conteudo_modulo_minha_agenda table td:last-of-type a {
+                        color: #666666;
+                    }
+
+                        #conteudo #conteudo_modulo_minha_agenda table td:last-of-type a:hover {
+                            text-decoration: underline;
+                        }

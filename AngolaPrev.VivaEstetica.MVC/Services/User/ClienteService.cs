@@ -55,33 +55,12 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.User
         {
             TB_CLIENTES cliente = context.TB_CLIENTES.Single(x => x.Id == model.Id);
 
-            cliente.DS_EMAIL = model.Email;
             cliente.DS_NOME = model.Nome;
             cliente.NU_TELEFONE = model.Telefone;
             cliente.DS_ENDERECO = model.Endereco;
             cliente.CPF = model.Cpf;
 
             context.SaveChanges();
-        }
-
-        public void Login(LoginViewModel model)
-        {
-            if (WebSecurity.UserExists(model.Email))
-            {
-                if (!WebSecurity.Login(model.Email, model.Password))
-                {
-                    throw new Exception(ExceptionMessages.SenhaIncorreta);
-                }
-            }
-            else
-            {
-                throw new Exception(ExceptionMessages.UsuarioNaoExiste);
-            }
-        }
-
-        public void Logout()
-        {
-            WebSecurity.Logout();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AngolaPrev.VivaEstetica.MVC.Models.Agenda;
 
 namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
@@ -10,5 +11,6 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Agenda
         void CadastrarAgendamento(CadastrarAgendamentoViewModel model);
         void CancelarAgendamento(CancelarAgendamentoViewModel model);
         IEnumerable<string> ObterAgendamentosPendentes(int idCliente);
+        IEnumerable<IGrouping<DateTime, ObterAgendamentoViewModel>> ObterHistoricoAgendamento(int idCliente);
     }
 }

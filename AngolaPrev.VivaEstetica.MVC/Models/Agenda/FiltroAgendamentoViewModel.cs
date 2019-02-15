@@ -1,9 +1,11 @@
 ﻿using AngolaPrev.VivaEstetica.MVC.Models.Servico;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMatrix.WebData;
 
 namespace AngolaPrev.VivaEstetica.MVC.Models.Agenda
 {
@@ -27,6 +29,14 @@ namespace AngolaPrev.VivaEstetica.MVC.Models.Agenda
         public IEnumerable<ObterAgendamentosPorDataViewModel> Data { get; set; }
         public IEnumerable<SelectListItem> Servicos { get; set; }
         public string MensagemPendentes { get; set; }
+        [Display(Name = "Descrição do serviço")]
         public int IdServico { get; set; }
+        public int IdUsuarioLogado
+        {
+            get
+            {
+                return WebSecurity.CurrentUserId;
+            }
+        }
     }
 }

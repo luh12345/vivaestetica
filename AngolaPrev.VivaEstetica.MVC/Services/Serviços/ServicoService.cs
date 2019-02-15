@@ -1,4 +1,5 @@
-﻿using AngolaPrev.VivaEstetica.MVC.Models.Servico;
+﻿using AngolaPrev.VivaEstetica.MVC.Common.Const;
+using AngolaPrev.VivaEstetica.MVC.Models.Servico;
 using AngolaPrev.VivaEstetica.MVC.Repository;
 using AngolaPrev.VivaEstetica.MVC.Repository.Contract;
 using System;
@@ -37,7 +38,8 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
                 Descricao = x.DS_SERVICO,
                 IdServico = x.Id,
                 Duracao = x.TP_MINUTOS,
-                TotalSessoes = x.QT_SESSOES
+                TotalSecoes = x.QT_SESSOES,
+                EhMassagem = x.BT_MASSAGEM
             });
         }
 
@@ -49,8 +51,34 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
                 Descricao = servico.DS_SERVICO,
                 Duracao = servico.TP_MINUTOS,
                 IdServico = servico.Id,
-                TotalSessoes = servico.QT_SESSOES
+                TotalSecoes = servico.QT_SESSOES
             };
+        }
+
+        public void Editar(ObterServicoViewModel model)
+        {
+            TB_SERVICOS servico = context.TB_SERVICOS.Single(x => x.Id == model.IdServico);
+
+            if (servico == null)
+                throw new Exception(ExceptionMessages.EditarServicoNaoExistente);
+
+            servico.DS_SERVICO = model.Descricao;
+            servico.QT_SESSOES = model.TotalSecoes;
+            servico.BT_MASSAGEM = model.EhMassagem;
+            servico.TP_MINUTOS = model.Duracao;
+
+            context.SaveChanges();
+        }
+
+        public void Deletar(int idServico)
+        {
+            TB_SERVICOS servico = context.TB_SERVICOS.Single(x => x.Id == idServico);
+
+            if (servico == null)
+                throw new Exception(ExceptionMessages.EditarServicoNaoExistente);
+
+            context.TB_SERVICOS.Remove(servico);
+            context.SaveChanges();
         }
     }
 }

@@ -4,19 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-@*<div id="titulo">
-        <h1>Agenda do dia @Model.DataAgendamentoFormatted</h1>
-    </div>
-    <hr class="hr_titulo">
-    <br />
-    <div id="filtros">
-        @using (Html.BeginForm("Index", "Agenda", FormMethod.Get))
-        {
-            <span>Filtros: </span>
-            @Html.TextBoxFor(Model => Model.DataAgendamentoFormatted, new { type = "date", @class = "form-control" })
-            <button type="submit">Atualizar</button>
-        }
-    </div>*@
 <div id="titulo">
     <h1>Agenda do dia @Model.DataAgendamentoFormatted</h1>
     <span>Bem vindo ao Viva Estética, @User.Identity.Name</span>
@@ -43,7 +30,7 @@
     </div>
 }
 
-<div id="conteudo_modulo">
+<div id="conteudo_modulo_agenda" class="conteudo_modulo">
     <table>
         <thead>
             <tr>
@@ -62,7 +49,7 @@
 
                 <tr>
                     <td>
-                        @Html.DisplayName(item.Hora.ToString())
+                        @Html.DisplayName(item.Hora.ToString(@"hh\:mm"))
                     </td>
                     <td>
                         @Html.DisplayName(item.DescricaoServico)
@@ -83,19 +70,19 @@
 
                                     if (item.Hora.Ticks == primeiroAgendamento.Hora.Ticks)
                                     {
-                                        <a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#@($"modal-agendamento-{item.IdAgendamento}")">Cancelar</a>
+                                        <button class="btn btn-outline-danger" @(item.IdCliente == Model.IdUsuarioLogado ? string.Empty : "disabled") data-toggle="modal" data-target="#@($"modal-agendamento-{item.IdAgendamento}")">Cancelar</button>
                                     }
                                 }
                             }
                             else
                             {
-                                <a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#@($"modal-agendamento-{item.IdAgendamento}")">Cancelar</a>
+                                <button class="btn btn-outline-danger" @(item.IdCliente == Model.IdUsuarioLogado ? string.Empty : "disabled") data-toggle="modal" data-target="#@($"modal-agendamento-{item.IdAgendamento}")">Cancelar</button>
                             }
 
                         }
                         else
                         {
-                            <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#@($"modal-agendamento-agendar-{index}")">Agendar</a>
+                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#@($"modal-agendamento-agendar-{index}")">Agendar</button>
                             index += 1;
                         }
                     </td>
@@ -186,11 +173,11 @@
     }
     else
     {
-        <div class="modal fade" id="@($"modal-agendamento-agendar-{indexModal}")" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="@($"modal-agendamento-agendar-{indexModal}")" tabindex="-1" role="dialog" aria-labelledby="modalAgendarLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Agendamento para as @item.Hora.ToString(@"hh\:mm") do dia @Model.DataAgendamento.ToShortDateString()</h5>
+                        <h5 class="modal-title" id="modalAgendarLabel">Novo agendamento</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -198,16 +185,25 @@
                     @using (Html.BeginForm("Agendar", "Agenda", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
+                        @Html.Hidden("HorarioAgendamento", item.Hora)
+                        @Html.HiddenFor(x => Model.DataAgendamentoFormatted)
 
                         <div class="modal-body">
-                            @Html.Hidden("HorarioAgendamento", item.Hora)
-                            @Html.HiddenFor(x => Model.DataAgendamentoFormatted)
-                            @Html.TextBox("QuantidadeSessao", 1, new { @type = "number", min = "1", @class = "form-control" })
-                            @Html.DropDownList("IdServico", Model.Servicos, "Selecione...", new { @class = "form-control" })
+                            <div class="col-12 form-group">
+                                @Html.Label("IdServico")
+                                @Html.DropDownList("IdServico", Model.Servicos, "Selecione...", new { @class = "form-control" })
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="qtd_secao">Quantidade de seções</label>
+                                <select name="QuantidadeSessao" id="qtd_secao" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary">Agendar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
                     }
                 </div>

@@ -1,4 +1,5 @@
 ﻿using AngolaPrev.VivaEstetica.MVC.Models.Login;
+using AngolaPrev.VivaEstetica.MVC.Services.Login;
 using AngolaPrev.VivaEstetica.MVC.Services.User;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
 {
     public class LoginController : BaseController
     {
-        private readonly IClienteService userService;
+        private readonly ILoginService loginService;
 
-        public LoginController(IClienteService userService)
+        public LoginController(ILoginService loginService)
         {
-            this.userService = userService;
+            this.loginService = loginService;
         }
 
         // GET: Login
@@ -35,7 +36,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
 
             try
             {
-                userService.Login(model);
+                loginService.Login(model);
                 Callback($"Seja bem vindo ao sistema de agendamento da Vida Estetica.");
             }
             catch (Exception ex)
@@ -49,7 +50,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
 
         public ActionResult Logout()
         {
-            userService.Logout();
+            loginService.Logout();
             return RedirectToAction("Login");
         }
     }

@@ -5,10 +5,10 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
 {
     public interface IServicoService
     {
-        void Cadastrar(CadastroServicoViewModel model);
-        ObterServicoViewModel Get(int IdServico);
+        void CadastrarServico(CadastroServicoViewModel model);
+        ObterServicoViewModel ObterServico(int IdServico);
         IEnumerable<ObterServicoViewModel> ObterTodos();
-        void Editar(ObterServicoViewModel model);
-        void Deletar(int idServico);
+        void EditarServico(ObterServicoViewModel model);
+        void DeletarServico(int idServico);
     }
 }

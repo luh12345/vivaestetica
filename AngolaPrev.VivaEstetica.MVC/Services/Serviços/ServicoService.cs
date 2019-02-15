@@ -18,7 +18,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
             this.context = context;
         }
 
-        public void Cadastrar(CadastroServicoViewModel model)
+        public void CadastrarServico(CadastroServicoViewModel model)
         {
             context.TB_SERVICOS.Add(new TB_SERVICOS
             {
@@ -43,7 +43,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
             });
         }
 
-        public ObterServicoViewModel Get(int IdServico)
+        public ObterServicoViewModel ObterServico(int IdServico)
         {
             TB_SERVICOS servico = context.TB_SERVICOS.Single(x => x.Id == IdServico);
             return new ObterServicoViewModel
@@ -55,7 +55,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
             };
         }
 
-        public void Editar(ObterServicoViewModel model)
+        public void EditarServico(ObterServicoViewModel model)
         {
             TB_SERVICOS servico = context.TB_SERVICOS.Single(x => x.Id == model.IdServico);
 
@@ -70,7 +70,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.Serviços
             context.SaveChanges();
         }
 
-        public void Deletar(int idServico)
+        public void DeletarServico(int idServico)
         {
             TB_SERVICOS servico = context.TB_SERVICOS.Single(x => x.Id == idServico);
 

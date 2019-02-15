@@ -61,7 +61,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
 
             try
             {
-                clienteService.Registrar(model);
+                clienteService.CadastrarCliente(model);
                 Callback();
             }
             catch (Exception ex)

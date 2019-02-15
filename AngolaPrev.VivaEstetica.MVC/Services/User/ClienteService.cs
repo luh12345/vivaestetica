@@ -18,7 +18,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Services.User
             this.context = context;
         }
 
-        public void Registrar(ClienteViewModel model)
+        public void CadastrarCliente(ClienteViewModel model)
         {
             try
             {

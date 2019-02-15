@@ -37,7 +37,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
             {
                 try
                 {
-                    servicoService.Cadastrar(model);
+                    servicoService.CadastrarServico(model);
                     Callback();
                 }
                 catch (Exception ex)
@@ -61,7 +61,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
             {
                 try
                 {
-                    servicoService.Editar(model);
+                    servicoService.EditarServico(model);
                     Callback();
                 }
                 catch (Exception ex)
@@ -81,7 +81,7 @@ namespace AngolaPrev.VivaEstetica.MVC.Controllers
             }
             else
             {
-                servicoService.Deletar(IdServico);
+                servicoService.DeletarServico(IdServico);
                 Callback();
             }
             return RedirectToAction("Index");
